@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +35,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
+    val context= LocalContext.current
     var phoneNumber by remember { mutableStateOf("") }
 
     Column(
@@ -70,7 +73,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* Handle continue action */ },
+            onClick = { val intent = Intent(context, HomeScreenActivity::class.java)
+                context.startActivity(intent) },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
             modifier = Modifier
                 .fillMaxWidth()

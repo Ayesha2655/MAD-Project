@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ class PersonalDetailsActivity : ComponentActivity() {
 
 @Composable
 fun PersonalDetailsScreen() {
+    val context= LocalContext.current
     val name = remember { mutableStateOf("") }
     val phoneNumber = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
@@ -107,7 +110,8 @@ fun PersonalDetailsScreen() {
 
         // Done Button
         Button(
-            onClick = { /* Handle the Done action */ },
+            onClick = { val intent = Intent(context, HomeScreenActivity::class.java)
+                context.startActivity(intent) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Done")
