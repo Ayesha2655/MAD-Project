@@ -1,10 +1,12 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -21,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import androidx.compose.ui.platform.LocalContext
 
 class SalonServicesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +37,12 @@ class SalonServicesActivity : ComponentActivity() {
 }
 
 
+
 @Composable
 fun SalonServicesScreen() {
+    val context= LocalContext.current
     Scaffold(
-        bottomBar = { BottomNavigationBar() } // Fixed navigation bar at the bottom
+        bottomBar = { SalonBottomNavigationBar() } // Fixed navigation bar at the bottom
     ) {
         Column(
             modifier = Modifier
@@ -51,7 +56,9 @@ fun SalonServicesScreen() {
                     .background(Color(0xFFF1F1F1)) // Light gray background for the HomeServices row
                     .padding(vertical = 8.dp, horizontal = 16.dp)
             ) {
-                SalonServicesRow()
+                SalonServicesRow(onBackClick = {
+                    (context as? Activity)?.finish() // Close current activity to go back
+                })
             }
 
             // Search Bar Section with light gray background outside and white inside
@@ -77,7 +84,7 @@ fun SalonServicesScreen() {
 }
 
 @Composable
-fun SalonServicesRow() {
+fun SalonServicesRow(onBackClick: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -86,7 +93,9 @@ fun SalonServicesRow() {
         Icon(
             painter = painterResource(id = R.drawable.back_arrow),
             contentDescription = "Back",
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier
+                .size(24.dp)
+                .clickable(onClick = onBackClick) // Use clickable to handle click
         )
 
         Text(
@@ -98,7 +107,9 @@ fun SalonServicesRow() {
         Icon(
             painter = painterResource(id = R.drawable.phonesolid),
             contentDescription = "Call",
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier
+                .size(24.dp)
+                
         )
     }
 }
@@ -172,7 +183,35 @@ fun Salon_Service_Item(serviceName: String, imagePainter: Painter) {
     }
 }
 
+@Composable
+fun SalonBottomNavigationBar() {
+    BottomAppBar(
+        containerColor = Color.White,  // Use containerColor for background
+        contentColor = Color.Black     // Use contentColor for the content color
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            SalonBottomNavItem(icon = painterResource(id = R.drawable.housesolid), "Home")
+            SalonBottomNavItem(icon = painterResource(id = R.drawable.listsolid), "Orders")
+            SalonBottomNavItem(icon = painterResource(id = R.drawable.usersolid), "Profile")
+        }
+    }
+}
 
+
+@Composable
+fun SalonBottomNavItem(icon: Painter, label: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(vertical = 8.dp)
+    ) {
+        Icon(painter = icon, contentDescription = label, modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = label, fontSize = 12.sp)
+    }
+}
 
 
 

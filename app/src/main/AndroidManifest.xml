@@ -23,6 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeScreenActivity" />
+        <activity android:name=".HomeServicesActivity" />
+        <activity android:name=".CleaningServicesActivity"/>
+        <activity android:name=".SalonServicesActivity"/>
+        <activity android:name=".ACServicesActivity"/>
+        <activity android:name=".CarpenterServicesActivity"/>
+        <activity android:name=".PlumberServicesActivity"/>
+        <activity android:name=".GyserServicesActivity"/>
+        <activity android:name=".PainterServicesActivity"/>
+        <activity android:name=".PestControlServicesActivity"/>
+        <activity android:name=".ElectricianServicesActivity"/>
+        <activity android:name=".HomeApplianceServicesActivity"/>
+
+
     </application>
 
 </manifest>
