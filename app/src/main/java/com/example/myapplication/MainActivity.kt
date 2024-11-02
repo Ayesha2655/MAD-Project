@@ -10,12 +10,12 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -25,7 +25,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
                     LoginScreen(Modifier.padding(innerPadding))
                 }
             }
@@ -35,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
-    val context= LocalContext.current
+    val context = LocalContext.current
     var phoneNumber by remember { mutableStateOf("") }
 
     Column(
@@ -73,8 +75,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { val intent = Intent(context, HomeScreenActivity::class.java)
-                context.startActivity(intent) },
+            onClick = {
+                val intent = Intent(context, HomeScreenActivity::class.java)
+                context.startActivity(intent)
+            },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
             modifier = Modifier
                 .fillMaxWidth()
